@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroCalc — Calculadora de Plantio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="bg-texture"></div>
+
+  <header>
+    <div class="logo">🌿 AgroCalc</div>
+    <p class="tagline">Planejamento agrícola inteligente</p>
+  </header>
+
+  <main>
+    <div class="card">
+
+      <div class="card-header">
+        <h1>Calculadora de Plantio</h1>
+        <p>Preencha os dados abaixo para obter uma estimativa completa do seu plantio.</p>
+      </div>
+
+      <div class="form-grid">
+
+        <!-- Cultura -->
+        <div class="form-group full">
+          <label>Tipo de Cultura</label>
+          <div class="select-wrapper">
+            <select id="cultura">
+              <option value="">— Selecione a cultura —</option>
+              <option value="milho">🌽 Milho</option>
+              <option value="soja">🫘 Soja</option>
+              <option value="trigo">🌾 Trigo</option>
+              <option value="arroz">🍚 Arroz</option>
+              <option value="feijao">🫘 Feijão</option>
+              <option value="outro">🌱 Outro</option>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+        <!-- Área -->
+        <div class="form-group">
+          <label>Área do Terreno</label>
+          <div class="input-wrapper">
+            <input type="number" id="area" placeholder="100" min="0">
+            <span class="unit">m²</span>
+          </div>
+        </div>
+
+        <!-- Sementes por m² -->
+        <div class="form-group">
+          <label>Sementes por m²</label>
+          <div class="input-wrapper">
+            <input type="number" id="sementesPorM2" placeholder="3" min="0" step="0.1">
+            <span class="unit">un/m²</span>
+          </div>
+        </div>
+
+        <!-- Preço por semente -->
+        <div class="form-group">
+          <label>Preço por Semente</label>
+          <div class="input-wrapper">
+            <span class="prefix">R$</span>
+            <input type="number" id="preco" placeholder="2,00" min="0" step="0.01">
+          </div>
+        </div>
+
+        <!-- Perda estimada -->
+        <div class="form-group">
+          <label>Perda Estimada <span class="hint">germinação</span></label>
+          <div class="input-wrapper">
+            <input type="number" id="perda" placeholder="10" min="0" max="100">
+            <span class="unit">%</span>
+          </div>
+        </div>
+
+        <!-- Espaçamento -->
+        <div class="form-group">
+          <label>Espaçamento entre linhas</label>
+          <div class="input-wrapper">
+            <input type="number" id="espacamento" placeholder="0.5" min="0" step="0.01">
+            <span class="unit">m</span>
+          </div>
+        </div>
+
+        <!-- Custo adicional -->
+        <div class="form-group">
+          <label>Custo Adicional <span class="hint">adubo, irrigação…</span></label>
+          <div class="input-wrapper">
+            <span class="prefix">R$</span>
+            <input type="number" id="custoExtra" placeholder="0,00" min="0" step="0.01">
+          </div>
+        </div>
+
+      </div>
+
+      <button class="btn-calcular" onclick="calcular()">
+        <span class="btn-icon">⚡</span> Calcular Plantio
+      </button>
+
+      <!-- Resultados -->
+      <section class="resultados" id="resultados" style="display:none">
+
+        <div class="resultados-header">
+          <h2>📊 Resultado do Cálculo</h2>
+          <span id="cultura-badge" class="badge"></span>
+        </div>
+
+        <div class="cards-resultado">
+
+          <div class="res-card verde">
+            <div class="res-icon">🌱</div>
+            <div class="res-label">Sementes Necessárias</div>
+            <div class="res-valor" id="r-sementes">—</div>
+            <div class="res-sub" id="r-sementes-extra"></div>
+          </div>
+
+          <div class="res-card azul">
+            <div class="res-icon">💰</div>
+            <div class="res-label">Custo das Sementes</div>
+            <div class="res-valor" id="r-custo-sementes">—</div>
+          </div>
+
+          <div class="res-card laranja">
+            <div class="res-icon">📦</div>
+            <div class="res-label">Custo Total</div>
+            <div class="res-valor" id="r-custo-total">—</div>
+          </div>
+
+          <div class="res-card roxo">
+            <div class="res-icon">📏</div>
+            <div class="res-label">Linhas de Plantio</div>
+            <div class="res-valor" id="r-linhas">—</div>
+          </div>
+
+          <div class="res-card cinza">
+            <div class="res-icon">💵</div>
+            <div class="res-label">Custo por m²</div>
+            <div class="res-valor" id="r-por-m2">—</div>
+          </div>
+
+          <div class="res-card escuro">
+            <div class="res-icon">🧮</div>
+            <div class="res-label">Custo por Semente</div>
+            <div class="res-valor" id="r-por-semente">—</div>
+          </div>
+
+        </div>
+
+        <div class="alerta" id="alerta-perda" style="display:none">
+          ⚠️ Considerando <strong id="perda-txt"></strong>% de perda, recomenda-se adquirir <strong id="sementes-extras-txt"></strong> sementes adicionais.
+        </div>
+
+        <button class="btn-limpar" onclick="limpar()">🔄 Novo Cálculo</button>
+
+      </section>
+
+      <!-- Erro -->
+      <div class="erro" id="erro" style="display:none">
+        ⚠️ <span id="erro-msg"></span>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>AgroCalc © 2026 — Planejamento de Plantio Profissional</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
