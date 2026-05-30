@@ -1,0 +1,397 @@
+/* ============================
+   AgroCalc — Style Sheet
+   ============================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --verde:    #1a6b3c;
+  --verde2:   #2d9b5f;
+  --verde3:   #e6f7ee;
+  --terra:    #8b5e3c;
+  --creme:    #faf7f2;
+  --escuro:   #1c2b1e;
+  --cinza:    #6b7a6e;
+  --branco:   #ffffff;
+  --sombra:   0 8px 32px rgba(26,107,60,0.10);
+  --radius:   16px;
+  --radius-sm: 10px;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--creme);
+  color: var(--escuro);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Textura de fundo */
+.bg-texture {
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 15%, rgba(45,155,95,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(26,107,60,0.07) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6b3c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ====== HEADER ====== */
+header {
+  text-align: center;
+  padding: 40px 20px 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--verde);
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 0.85rem;
+  color: var(--cinza);
+  font-weight: 400;
+  margin-top: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* ====== MAIN CARD ====== */
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+.card {
+  background: var(--branco);
+  border-radius: var(--radius);
+  box-shadow: var(--sombra);
+  padding: 36px 32px;
+  border: 1px solid rgba(26,107,60,0.08);
+}
+
+.card-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--escuro);
+}
+
+.card-header p {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--cinza);
+  line-height: 1.5;
+}
+
+/* ====== FORM GRID ====== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--verde);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hint {
+  font-weight: 400;
+  color: var(--cinza);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+/* Input wrapper */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: var(--creme);
+  border: 1.5px solid #d4e8da;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-wrapper:focus-within {
+  border-color: var(--verde2);
+  box-shadow: 0 0 0 3px rgba(45,155,95,0.12);
+}
+
+.input-wrapper input {
+  border: none;
+  background: transparent;
+  padding: 11px 12px;
+  font-size: 0.95rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--escuro);
+  flex: 1;
+  outline: none;
+  min-width: 0;
+}
+
+.input-wrapper input::placeholder {
+  color: #b0bdb4;
+}
+
+.unit, .prefix {
+  padding: 0 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--cinza);
+  background: rgba(26,107,60,0.05);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.prefix {
+  border-right: 1.5px solid #d4e8da;
+}
+
+.unit {
+  border-left: 1.5px solid #d4e8da;
+}
+
+/* Select */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper select {
+  width: 100%;
+  appearance: none;
+  background: var(--creme);
+  border: 1.5px solid #d4e8da;
+  border-radius: var(--radius-sm);
+  padding: 11px 40px 11px 14px;
+  font-size: 0.95rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--escuro);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.select-wrapper select:focus {
+  border-color: var(--verde2);
+  box-shadow: 0 0 0 3px rgba(45,155,95,0.12);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--verde2);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+/* ====== BOTÃO CALCULAR ====== */
+.btn-calcular {
+  width: 100%;
+  margin-top: 28px;
+  padding: 15px;
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde2) 100%);
+  color: var(--branco);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(26,107,60,0.25);
+}
+
+.btn-calcular:hover {
+  opacity: 0.93;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(26,107,60,0.3);
+}
+
+.btn-calcular:active {
+  transform: translateY(0);
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+}
+
+/* ====== RESULTADOS ====== */
+.resultados {
+  margin-top: 36px;
+  animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.resultados-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.resultados-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--escuro);
+}
+
+.badge {
+  background: var(--verde3);
+  color: var(--verde);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* Cards de resultado */
+.cards-resultado {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.res-card {
+  border-radius: var(--radius-sm);
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.2s;
+}
+
+.res-card:hover { transform: translateY(-2px); }
+
+.res-card.verde  { background: #e6f7ee; }
+.res-card.azul   { background: #e8f3fd; }
+.res-card.laranja{ background: #fff3e6; }
+.res-card.roxo   { background: #f0ebff; }
+.res-card.cinza  { background: #f2f4f2; }
+.res-card.escuro { background: #e8ede9; }
+
+.res-icon  { font-size: 1.4rem; }
+.res-label { font-size: 0.72rem; font-weight: 600; color: var(--cinza); text-transform: uppercase; letter-spacing: 0.06em; }
+.res-valor { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--escuro); line-height: 1.2; }
+.res-sub   { font-size: 0.72rem; color: var(--cinza); }
+
+/* Alerta */
+.alerta {
+  margin-top: 18px;
+  background: #fffbea;
+  border: 1.5px solid #f0d060;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  color: #7a6000;
+  line-height: 1.6;
+}
+
+/* Botão limpar */
+.btn-limpar {
+  margin-top: 20px;
+  background: transparent;
+  border: 1.5px solid #d4e8da;
+  color: var(--verde);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-limpar:hover {
+  background: var(--verde3);
+}
+
+/* Erro */
+.erro {
+  margin-top: 18px;
+  background: #fff0f0;
+  border: 1.5px solid #f5c6c6;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  color: #9b2a2a;
+  font-weight: 500;
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-6px); }
+  75%       { transform: translateX(6px); }
+}
+
+/* ====== FOOTER ====== */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.78rem;
+  color: var(--cinza);
+  position: relative;
+  z-index: 1;
+}
+
+/* ====== RESPONSIVO ====== */
+@media (max-width: 560px) {
+  .card { padding: 24px 16px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-group.full { grid-column: 1; }
+  .cards-resultado { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 380px) {
+  .cards-resultado { grid-template-columns: 1fr; }
+}
